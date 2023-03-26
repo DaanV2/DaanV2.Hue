@@ -7,7 +7,7 @@ import { LightConfig, LightConfigMap } from "./types/lights";
 import fetch, { RequestInit } from "node-fetch";
 import { HttpError } from "./errors";
 
-export class ApplicationConnection {
+export class Application {
   public readonly bridge: Bridge;
   public appkey: string;
   public appId: string;
@@ -71,7 +71,7 @@ export class ApplicationConnection {
   }
 
   public static async setupApplication(bridge: Bridge, appkey: string | CreateDeveloperResponse) {
-    const app = new ApplicationConnection(bridge, appkey);
+    const app = new Application(bridge, appkey);
 
     const response = await app.getAppId();
 
