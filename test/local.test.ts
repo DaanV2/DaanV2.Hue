@@ -1,5 +1,5 @@
 import { ApplicationConnection } from "../src/hue/application";
-import { BridgeConnection } from "../src/main";
+import { Bridge } from "../src/main";
 
 import * as fs from "fs";
 import path from "path";
@@ -21,7 +21,7 @@ describe("local test", () => {
   });
 });
 
-function getData(): { bridge: BridgeConnection | undefined; app: ApplicationConnection | undefined } {
+function getData(): { bridge: Bridge | undefined; app: ApplicationConnection | undefined } {
   //READ from environment file ../.env.private
   const filepath = path.join(__dirname, "..", ".env.private");
 
@@ -47,7 +47,7 @@ function getData(): { bridge: BridgeConnection | undefined; app: ApplicationConn
     };
   }
 
-  const bridge = new BridgeConnection(BRIDGE_ID, BRIDGE_IP);
+  const bridge = new Bridge(BRIDGE_ID, BRIDGE_IP);
   const app = new ApplicationConnection(bridge, APP_KEY);
 
   return {

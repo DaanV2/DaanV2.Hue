@@ -1,4 +1,4 @@
-import { BridgeConnection } from "./bridge";
+import { Bridge } from "./bridge";
 import { CreateDeveloperResponse } from "./messages";
 import { LightStateRequest, StateChangeSuccess } from "./messages/lights";
 import { BridgeConfig } from "./types/config";
@@ -8,11 +8,11 @@ import fetch, { RequestInit } from "node-fetch";
 import { HttpError } from "./errors";
 
 export class ApplicationConnection {
-  public readonly bridge: BridgeConnection;
+  public readonly bridge: Bridge;
   public appkey: string;
   public appId: string;
 
-  constructor(bridge: BridgeConnection, appkey: string | CreateDeveloperResponse) {
+  constructor(bridge: Bridge, appkey: string | CreateDeveloperResponse) {
     this.bridge = bridge;
 
     if (typeof appkey !== "string") {
@@ -70,7 +70,7 @@ export class ApplicationConnection {
     return this.bridge.rest.get<StateChangeSuccess>(`${this.appkey}/lights/${lightId}/state`, options);
   }
 
-  public static async setupApplication(bridge: BridgeConnection, appkey: string | CreateDeveloperResponse) {
+  public static async setupApplication(bridge: Bridge, appkey: string | CreateDeveloperResponse) {
     const app = new ApplicationConnection(bridge, appkey);
 
     const response = await app.getAppId();
