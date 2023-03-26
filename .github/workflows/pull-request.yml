@@ -1,18 +1,14 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
-name: PR
+name: 🔍 PR
 
 on:
   push: {}
   workflow_dispatch: {}
 
 jobs:
-  test:
-    name: 📋 Unit Test
-    uses: ./.github/workflows/unit-test.yml
-
-  build:
-    name: 📦 Build Check
+  build-test:
+    name: 📦 Build and 📋 Test Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -30,6 +26,9 @@ jobs:
 
       - name: 🛠️ Build
         run: npm run compile
+
+      - name: 📋 Test
+        run: npm run test
 
       - name: 📋 Test Reporter
         if: ${{ always() }}
