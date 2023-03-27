@@ -1,12 +1,16 @@
 {
   "name": "daanv2.hue",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A library to control a hue bridge",
   "main": "dist/index.js",
   "scripts": {
     "precompile": "tsc --build --clean",
     "compile": "tsc --build",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "npm test",
+    "preversion": "",
+    "postversion": "git push && git push --tags",
+    "version": "git add -A src"
   },
   "keywords": [
     "hue",
