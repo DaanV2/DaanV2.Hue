@@ -1,31 +1,31 @@
 {
-    "name": "daanv2.hue",
-    "version": "1.0.0",
-    "description": "A library to control a hue bridge",
-    "main": "dist/index.js",
-    "scripts": {
-        "precompile": "tsc --build --clean",
-        "compile": "tsc --build",
-        "test": "jest"
-    },
-    "keywords": [
-        "hue",
-        "library"
-    ],
-    "author": "DaanV2",
-    "license": "ISC",
-    "devDependencies": {
-        "@jest/globals": "^29.5.0",
-        "@types/jest": "^29.5.0",
-        "@types/node-fetch": "^2.6.2",
-        "node": "^19.8.1",
-        "ts-node": "^10.9.1",
-        "typescript": "^5.0.2"
-    },
-    "dependencies": {
-        "@jest/types": "^29.5.0",
-        "jest-junit": "^15.0.0",
-        "node-fetch": "^2.6.9",
-        "ts-jest": "^29.0.5"
-    }
+  "name": "daanv2.hue",
+  "version": "0.0.1",
+  "description": "A library to control a hue bridge",
+  "main": "dist/index.js",
+  "scripts": {
+    "precompile": "tsc --build --clean",
+    "compile": "tsc --build",
+    "test": "jest"
+  },
+  "keywords": [
+    "hue",
+    "library"
+  ],
+  "author": "DaanV2",
+  "license": "ISC",
+  "devDependencies": {
+    "@jest/globals": "^29.5.0",
+    "@types/jest": "^29.5.0",
+    "@types/node-fetch": "^2.6.2",
+    "node": "^19.8.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "@jest/types": "^29.5.0",
+    "jest-junit": "^15.0.0",
+    "node-fetch": "^2.6.9",
+    "ts-jest": "^29.0.5"
+  }
 }
