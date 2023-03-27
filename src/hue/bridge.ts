@@ -1,5 +1,5 @@
 import { ClipClient } from "./clip-client";
-import { CreateDeveloperResponse } from "./messages";
+import { CreateDeveloperResponse } from "../messages";
 import { RestClient } from "./rest-client";
 import { RequestInit } from "node-fetch";
 
