@@ -1,6 +1,6 @@
 {
   "name": "daanv2.hue",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A library to control a hue bridge",
   "main": "dist/index.js",
   "scripts": {
