@@ -2,7 +2,10 @@ import { getApp } from "./util";
 
 describe("resource test", () => {
   const app = getApp();
-  if (!app) return;
+  if (!app) {
+    it("Skip local tests", () => {});
+    return;
+  }
 
   beforeAll(async () => {
     if (!app) return;
