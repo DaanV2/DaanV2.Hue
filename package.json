@@ -1,13 +1,19 @@
 {
-  "name": "daanv2.hue",
+  "name": "@daanv2/hue",
   "version": "1.0.1",
   "description": "A library to control a hue bridge",
-  "main": "dist/index.js",
+  "author": "DaanV2",
+  "license": "MIT",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "files": [
+    "dist",
+    "!dist/test/**/*"
+  ],
   "scripts": {
     "precompile": "tsc --build --clean",
     "compile": "tsc --build",
     "test": "jest",
-    "prepublishOnly": "npm test",
     "preversion": "",
     "postversion": "git push && git push --tags",
     "version": "git add -A src"
@@ -16,8 +22,6 @@
     "hue",
     "library"
   ],
-  "author": "DaanV2",
-  "license": "ISC",
   "devDependencies": {
     "@jest/globals": "^29.5.0",
     "@types/jest": "^29.5.0",
