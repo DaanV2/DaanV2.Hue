@@ -4,8 +4,8 @@
   "description": "A library to control a hue bridge",
   "author": "DaanV2",
   "license": "MIT",
-  "main": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "main": "dist/src/main.js",
+  "types": "dist/src/main.d.ts",
   "files": [
     "dist",
     "!dist/test/**/*"
@@ -35,5 +35,13 @@
     "jest-junit": "^15.0.0",
     "node-fetch": "^2.6.9",
     "ts-jest": "^29.0.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaanV2/DaanV2.Hue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DaanV2/DaanV2.Hue/issues"
+  },
+  "homepage": "https://github.com/DaanV2/DaanV2.Hue#readme"
 }
