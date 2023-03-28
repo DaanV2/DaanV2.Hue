@@ -1,5 +1,6 @@
 name: "tagged-release"
 
+permissions: write-all
 on:
   push:
     tags:

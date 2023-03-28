@@ -4,6 +4,7 @@ name: 📦 Npm Package & Publish
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+permissions: write-all
 on:
   workflow_dispatch:
 
