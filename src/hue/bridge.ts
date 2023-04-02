@@ -1,5 +1,5 @@
 import { ClipClient } from "./clip-client";
-import { CreateDeveloperResponse } from "../messages";
+import { ClipError, CreateDeveloperResponse } from "../messages";
 import { RestClient } from "./rest-client";
 import { RequestInit } from "node-fetch";
 
@@ -34,11 +34,11 @@ export class Bridge {
   /** Register a new developer with the bridge. NOTE: The push link button must be pressed on the bridge before calling this method.
    * @param developerId The username to register @example "my_hue_app#my_pc"
    * @returns The response from the bridge*/
-  public async registerDeveloper(developerId: string): Promise<CreateDeveloperResponse> {
+  public async registerDeveloper(developerId: string) {
     const options: RequestInit = {
       body: JSON.stringify({ devicetype: developerId }),
     };
 
-    return this.clip.post<CreateDeveloperResponse>("", options);
+    return this.clip.post<CreateDeveloperResponse | ClipError>("/api", options);
   }
 }
