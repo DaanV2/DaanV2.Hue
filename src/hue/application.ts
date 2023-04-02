@@ -11,25 +11,26 @@ import { Reference } from "../types/reference";
 import { GroupConfig } from "../types/groups";
 import { BridgeHomeConfig } from "../types/bridge_home";
 import { ZoneConfig } from "../types/zone";
-import { DeviceConfig, DevicePowerConifg } from "../types/device";
+import { DeviceConfig, DevicePowerConfig } from "../types/device";
 import { ZigbeeConnectivity } from "../types/zigbee";
 import { MotionConfig } from "../types/motion";
 import { SceneConfig } from "../types/scene";
 import { TemperatureConfig } from "../types/temperature";
+import { HeaderInit } from "node-fetch";
 
 export class Application {
   public readonly bridge: Bridge;
-  public appkey: string;
+  public appKey: string;
   public appId: string;
 
-  constructor(bridge: Bridge, appkey: string | CreateDeveloperResponse) {
+  constructor(bridge: Bridge, appKey: string | CreateDeveloperResponse) {
     this.bridge = bridge;
 
-    if (typeof appkey !== "string") {
-      appkey = appkey.success.username;
+    if (typeof appKey !== "string") {
+      appKey = appKey.success.username;
     }
 
-    this.appkey = appkey;
+    this.appKey = appKey;
     this.appId = "";
   }
 
@@ -39,29 +40,33 @@ export class Application {
     return {
       headers: {
         "hue-application-id": this.appId,
-        "hue-application-key": this.appkey,
+        "hue-application-key": this.appKey,
       },
     };
+  }
+
+  private addOptions(options: RequestInit): void {
+    const headers = (options.headers as Record<string, string>) ?? {};
+    if (this.appId !== "") headers["hue-application-id"] = this.appId;
+    if (this.appKey !== "") headers["hue-application-key"] = this.appKey;
+    options.headers = headers;
   }
 
   /** Gets the application id from the bridge for this app */
   public async getAppId() {
     const options = {
       method: "GET",
-      ...this.baseOptions(),
       ...this.bridge.rest.baseOptions,
     };
 
-    if (options.headers && "hue-application-id" in options.headers) {
-      delete options.headers["hue-application-id"];
-    }
+    this.addOptions(options);
 
-    return fetch(`https://${this.bridge.bridgeIp}/auth/v1`, options);
+    return fetch(`${this.bridge.rest.baseUrl} /auth/v1`, options);
   }
 
   /** Gets the config from  */
   public async getConfig() {
-    return this.bridge.rest.get<BridgeConfig>(`/api/${this.appkey}/config`, this.baseOptions());
+    return this.bridge.rest.get<BridgeConfig>(`/api/${this.appKey}/config`, this.baseOptions());
   }
 
   /** Gets the `grouped_light` resource from the bridge.
@@ -77,26 +82,26 @@ export class Application {
   }
 
   /** Sets the `grouped_light` resource on the bridge.
-   * @param groupid The group id to set.
+   * @param groupId The group id to set.
    * @param state The state to set.
    * @returns A status message from the bridge.*/
-  public async setGroupedLight(groupid: string, state: LightStateRequest) {
+  public async setGroupedLight(groupId: string, state: LightStateRequest) {
     const options: RequestInit = {
       ...this.baseOptions(),
       body: JSON.stringify(state),
     };
 
     return this.bridge.rest.get<ClipV2Message<StateChangeSuccess>>(
-      `/clip/v2/resource/grouped_light/${groupid}`,
+      `/clip/v2/resource/grouped_light/${groupId}`,
       options
     );
   }
 
   /** Gets the `bridge_home` resource from the bridge.
-   * @param homeid If specified, only gets the specified home.
+   * @param homeId If specified, only gets the specified home.
    * @returns The `bridge_home` resource(s) from the bridge.*/
-  public async getBridgeHome(homeid?: string) {
-    const resource = homeid ? `/${homeid}` : "";
+  public async getBridgeHome(homeId?: string) {
+    const resource = homeId ? `/${homeId}` : "";
 
     return this.bridge.rest.get<ClipV2Message<BridgeHomeConfig>>(
       `/clip/v2/resource/bridge_home${resource}`,
@@ -105,40 +110,40 @@ export class Application {
   }
 
   /** Gets the `device` resource from the bridge.
-   * @param deviceid If specified, only gets the specified device.
+   * @param deviceId If specified, only gets the specified device.
    * @returns The `device` resource(s) from the bridge.*/
-  public async getDevice(deviceid?: string) {
-    const resource = deviceid ? `/${deviceid}` : "";
+  public async getDevice(deviceId?: string) {
+    const resource = deviceId ? `/${deviceId}` : "";
 
     return this.bridge.rest.get<ClipV2Message<DeviceConfig>>(`/clip/v2/resource/device${resource}`, this.baseOptions());
   }
 
   /** Gets the `device_power` resource from the bridge.
-   * @param device_powerid If specified, only gets the specified device.
+   * @param device_powerId If specified, only gets the specified device.
    * @returns The `device_power` resource(s) from the bridge.*/
-  public async getDevicePower(device_powerid?: string) {
-    const resource = device_powerid ? `/${device_powerid}` : "";
+  public async getDevicePower(device_powerId?: string) {
+    const resource = device_powerId ? `/${device_powerId}` : "";
 
-    return this.bridge.rest.get<ClipV2Message<DevicePowerConifg>>(
+    return this.bridge.rest.get<ClipV2Message<DevicePowerConfig>>(
       `/clip/v2/resource/device_power${resource}`,
       this.baseOptions()
     );
   }
 
   /** Gets the `light` resource from the bridge.
-   * @param lightid If specified, only gets the specified light.
+   * @param lightId If specified, only gets the specified light.
    * @returns The `light` resource(s) from the bridge.*/
-  public async getLight(lightid?: string) {
-    const resource = lightid ? `/${lightid}` : "";
+  public async getLight(lightId?: string) {
+    const resource = lightId ? `/${lightId}` : "";
 
     return this.bridge.rest.get<ClipV2Message<LightConfig>>(`/clip/v2/resource/light${resource}`, this.baseOptions());
   }
 
   /** Gets the `light_level` resource from the bridge.
-   * @param ligth_levelid If specified, only gets the specified zone.
+   * @param light_levelId If specified, only gets the specified zone.
    * @returns The `light_level` resource(s) from the bridge.*/
-  public async getLightLevel(ligth_levelid?: string) {
-    const resource = ligth_levelid ? `/${ligth_levelid}` : "";
+  public async getLightLevel(light_levelId?: string) {
+    const resource = light_levelId ? `/${light_levelId}` : "";
 
     return this.bridge.rest.get<ClipV2Message<LightLevelConfig>>(
       `/clip/v2/resource/light_level${resource}`,
@@ -160,37 +165,37 @@ export class Application {
   }
 
   /** Gets the `motion` resource from the bridge.
-   * @param motionid If specified, only gets the specified motion.
+   * @param motionId If specified, only gets the specified motion.
    * @returns The `motion` resource(s) from the bridge.*/
-  public async getMotionSensor(motionid?: string) {
-    const resource = motionid ? `/${motionid}` : "";
+  public async getMotionSensor(motionId?: string) {
+    const resource = motionId ? `/${motionId}` : "";
 
     return this.bridge.rest.get<ClipV2Message<MotionConfig>>(`/clip/v2/resource/motion${resource}`, this.baseOptions());
   }
 
   /** Gets the `room` resource from the bridge.
-   * @param roomid If specified, only gets the specified room.
+   * @param roomId If specified, only gets the specified room.
    * @returns The `room` resource(s) from the bridge.*/
-  public async getRoom(roomid?: string) {
-    const resource = roomid ? `/${roomid}` : "";
+  public async getRoom(roomId?: string) {
+    const resource = roomId ? `/${roomId}` : "";
 
     return this.bridge.rest.get<ClipV2Message<RoomConfig>>(`/clip/v2/resource/room${resource}`, this.baseOptions());
   }
 
   /** Gets the `scene` resource from the bridge.
-   * @param sceneid If specified, only gets the specified scene.
+   * @param sceneId If specified, only gets the specified scene.
    * @returns The `scene` resource(s) from the bridge.*/
-  public async getScene(sceneid?: string) {
-    const resource = sceneid ? `/${sceneid}` : "";
+  public async getScene(sceneId?: string) {
+    const resource = sceneId ? `/${sceneId}` : "";
 
     return this.bridge.rest.get<ClipV2Message<SceneConfig>>(`/clip/v2/resource/scene${resource}`, this.baseOptions());
   }
 
   /** Gets the `temperature` resource from the bridge.
-   * @param temperatureid If specified, only gets the specified temperature.
+   * @param temperatureId If specified, only gets the specified temperature.
    * @returns The `temperature` resource(s) from the bridge.*/
-  public async getTemperature(temperatureid?: string) {
-    const resource = temperatureid ? `/${temperatureid}` : "";
+  public async getTemperature(temperatureId?: string) {
+    const resource = temperatureId ? `/${temperatureId}` : "";
 
     return this.bridge.rest.get<ClipV2Message<TemperatureConfig>>(
       `/clip/v2/resource/temperature${resource}`,
@@ -199,19 +204,19 @@ export class Application {
   }
 
   /** Gets the `zone` resource from the bridge.
-   * @param zoneid If specified, only gets the specified zone.
+   * @param zoneId If specified, only gets the specified zone.
    * @returns The `zone` resource(s) from the bridge.*/
-  public async getZone(zoneid?: string) {
-    const resource = zoneid ? `/${zoneid}` : "";
+  public async getZone(zoneId?: string) {
+    const resource = zoneId ? `/${zoneId}` : "";
 
     return this.bridge.rest.get<ClipV2Message<ZoneConfig>>(`/clip/v2/resource/zone${resource}`, this.baseOptions());
   }
 
   /** Gets the `zigbee_connectivity` resource from the bridge.
-   * @param zigbeeid If specified, only gets the specified zigbee connectivity.
+   * @param zigbeeId If specified, only gets the specified zigbee connectivity.
    * @returns The `zigbee_connectivity` resource(s) from the bridge.*/
-  public async getZigbeeConnectivity(zigbeeid?: string) {
-    const resource = zigbeeid ? `/${zigbeeid}` : "";
+  public async getZigbeeConnectivity(zigbeeId?: string) {
+    const resource = zigbeeId ? `/${zigbeeId}` : "";
 
     return this.bridge.rest.get<ClipV2Message<ZigbeeConnectivity>>(
       `/clip/v2/resource/zigbee_connectivity${resource}`,
@@ -233,10 +238,10 @@ export class Application {
 
   /** Setup a new application on the bridge. assumes the bridge and app_id is already authenticated.
    * @param bridge The bridge to setup the application on.
-   * @param appkey The appkey to use for the application.
+   * @param appKey The appKey to use for the application.
    * @returns The application object.*/
-  public static async setupApplication(bridge: Bridge, appkey: string | CreateDeveloperResponse) {
-    const app = new Application(bridge, appkey);
+  public static async setupApplication(bridge: Bridge, appKey: string | CreateDeveloperResponse) {
+    const app = new Application(bridge, appKey);
     await app.setup();
 
     return app;

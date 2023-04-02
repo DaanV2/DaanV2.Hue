@@ -23,7 +23,7 @@ export interface ProductConfig {
   hardware_platform_type: string;
 }
 
-export interface DevicePowerConifg {
+export interface DevicePowerConfig {
   id: string;
   id_v1: string;
   owner: Reference;
