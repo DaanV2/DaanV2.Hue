@@ -35,10 +35,11 @@ export class Bridge {
    * @param developerId The username to register @example "my_hue_app#my_pc"
    * @returns The response from the bridge*/
   public async registerDeveloper(developerId: string) {
+    const client = new RestClient(`http://${this.bridgeIp}`);
     const options: RequestInit = {
       body: JSON.stringify({ devicetype: developerId }),
     };
 
-    return this.clip.post<CreateDeveloperResponse | ClipError>("/api", options);
+    return client.post<(CreateDeveloperResponse | { error: ClipError })[]>("/api", options);
   }
 }

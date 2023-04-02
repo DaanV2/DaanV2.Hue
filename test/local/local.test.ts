@@ -11,7 +11,7 @@ describe.only("local", () => {
       if (CreateDeveloperResponse.is(data)) {
         console.log(data.success.username);
       } else {
-        console.log(data?.description);
+        console.log(data);
       }
     } catch (e) {
       console.log(e);

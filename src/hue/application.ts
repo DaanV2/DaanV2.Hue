@@ -47,11 +47,16 @@ export class Application {
   /** Gets the application id from the bridge for this app */
   public async getAppId() {
     const options = {
+      method: "GET",
       ...this.baseOptions(),
       ...this.bridge.rest.baseOptions,
     };
 
-    return fetch(`${this.bridge.rest.baseUrl}/auth/v1`, options);
+    if (options.headers && "hue-application-id" in options.headers) {
+      delete options.headers["hue-application-id"];
+    }
+
+    return fetch(`https://${this.bridge.bridgeIp}/auth/v1`, options);
   }
 
   /** Gets the config from  */

@@ -2,6 +2,8 @@ import { HttpError } from "./errors";
 import https from "https";
 import fetch, { RequestInit } from "node-fetch";
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 /**
  * A simple client for making json REST requests
  */
@@ -23,11 +25,23 @@ export class RestClient {
       // Hue uses a self-signed certificate, so we need to disable certificate validation
       const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
-        requestCert: false,
+        enableTrace: true,
+        checkServerIdentity: (hostname, cert) => {
+          if (hostname === "Phillips-hue") {
+            return undefined;
+          }
+          return new Error("Invalid server certificate");
+        },
       });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.baseOptions.agent = httpsAgent;
+    }
+
+    if (this.baseOptions.headers === undefined) {
+      this.baseOptions.headers = {
+        "User-Agent": "daanv2@hue",
+      };
     }
 
     if (!this.baseOptions.timeout) {
