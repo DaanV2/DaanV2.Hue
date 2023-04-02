@@ -31,17 +31,18 @@ export class ClipClient {
     options?: RequestInit
   ): Promise<T> {
     return new Promise<T>((resolve, reject) => {
-      ClipMessage.wrap(call(route, options)).then((clip) => {
-        if (clip.error) {
-          return reject(clip.error);
-        }
+      ClipMessage.wrap(call(route, options))
+        .then((clip) => {
+          if (clip.error) {
+            return reject(clip.error);
+          }
+          if (!clip.data) {
+            return reject(new Error("No data returned"));
+          }
 
-        if (!clip.data) {
-          return reject(new Error("No data returned"));
-        }
-
-        return resolve(clip.data);
-      });
+          return resolve(clip.data);
+        })
+        .catch(reject);
     });
   }
 }
