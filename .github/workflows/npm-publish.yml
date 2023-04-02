@@ -3,6 +3,7 @@
 name: 📦 Npm Package & Publish
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  FORCE_COLOR: true
 
 permissions: write-all
 on:
