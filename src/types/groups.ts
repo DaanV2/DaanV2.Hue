@@ -1,5 +1,5 @@
 import { DimmingState } from "../colors/dimming";
-import { ColorConfig, ColorTemperature } from "./lights";
+import { ColorConfig, ColorTemperature } from "./color";
 import { Reference } from "./reference";
 import { ServicesContainer } from "./service";
 import { OnState } from "./states";

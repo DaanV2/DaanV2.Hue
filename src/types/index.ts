@@ -5,6 +5,7 @@ export * from "./color";
 export * from "./config";
 export * from "./device";
 export * from "./groups";
+export * from "./identifiable";
 export * from "./lights";
 export * from "./motion";
 export * from "./reference";
