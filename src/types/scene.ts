@@ -28,3 +28,9 @@ export interface SceneAction {
   target: Reference;
   action: LightStateRequest;
 }
+
+export namespace SceneConfig {
+  export function is_cheap(value: any | SceneConfig): value is SceneConfig {
+    return value.type === "scene";
+  }
+}

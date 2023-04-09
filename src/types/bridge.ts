@@ -9,3 +9,9 @@ export interface BridgeSimpleConfig {
   };
   type: "bridge";
 }
+
+export namespace BridgeSimpleConfig {
+  export function is_cheap(value: any | BridgeSimpleConfig): value is BridgeSimpleConfig {
+    return value.type === "bridge";
+  }
+}

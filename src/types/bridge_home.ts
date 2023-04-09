@@ -7,3 +7,9 @@ export interface BridgeHomeConfig {
   services: Reference[];
   type: "bridge_home";
 }
+
+export namespace BridgeHomeConfig {
+  export function is_cheap(value: any | BridgeHomeConfig): value is BridgeHomeConfig {
+    return value.type === "bridge_home";
+  }
+}

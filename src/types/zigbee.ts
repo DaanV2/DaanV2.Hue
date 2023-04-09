@@ -8,3 +8,9 @@ export interface ZigbeeConnectivity {
   mac_address: string;
   type: "zigbee_connectivity";
 }
+
+export namespace ZigbeeConnectivity {
+  export function is_cheap(value: any | ZigbeeConnectivity): value is ZigbeeConnectivity {
+    return value.type === "zigbee_connectivity";
+  }
+}

@@ -20,3 +20,9 @@ export interface MotionConfig {
   };
   type: "motion";
 }
+
+export namespace MotionConfig {
+  export function is_cheap(value: any | MotionConfig): value is MotionConfig {
+    return value.type === "motion";
+  }
+}

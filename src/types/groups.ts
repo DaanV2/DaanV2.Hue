@@ -1,6 +1,7 @@
 import { DimmingState } from "../colors/dimming";
 import { ColorConfig, ColorTemperature } from "./lights";
 import { Reference } from "./reference";
+import { ServicesContainer } from "./service";
 import { OnState } from "./states";
 
 export type GroupConfigMap = { [id: string]: GroupConfig };
@@ -23,10 +24,6 @@ export interface GroupConfig {
   };
   dynamics: {};
   type: "grouped_light";
-}
-
-export interface ServicesContainer {
-  services: Reference[];
 }
 
 export namespace GroupConfig {

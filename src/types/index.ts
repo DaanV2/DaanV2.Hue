@@ -1,6 +1,7 @@
 export * from "./backup";
 export * from "./bridge_home";
 export * from "./bridge";
+export * from "./color";
 export * from "./config";
 export * from "./device";
 export * from "./groups";
@@ -9,6 +10,7 @@ export * from "./motion";
 export * from "./reference";
 export * from "./room";
 export * from "./scene";
+export * from "./service";
 export * from "./states";
 export * from "./temperature";
 export * from "./update";

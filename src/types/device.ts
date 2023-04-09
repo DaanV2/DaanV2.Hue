@@ -33,3 +33,9 @@ export interface DevicePowerConfig {
   };
   type: "device_power";
 }
+
+export namespace DevicePowerConfig {
+  export function is_cheap(value: any | DevicePowerConfig): value is DevicePowerConfig {
+    return value.type === "device_power";
+  }
+}

@@ -15,3 +15,9 @@ export interface TemperatureConfig {
   };
   type: "temperature";
 }
+
+export namespace TemperatureConfig {
+  export function is_cheap(value: any | TemperatureConfig): value is TemperatureConfig {
+    return value.type === "temperature";
+  }
+}

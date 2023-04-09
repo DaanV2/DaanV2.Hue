@@ -11,3 +11,9 @@ export interface ZoneConfig {
   };
   type: "zone";
 }
+
+export namespace ZoneConfig {
+  export function is_cheap(value: any | ZoneConfig): value is ZoneConfig {
+    return value.type === "zone";
+  }
+}

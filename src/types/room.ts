@@ -13,3 +13,9 @@ export interface RoomMetadata {
   name: string;
   archetype: string;
 }
+
+export namespace RoomConfig {
+  export function is_cheap(value: any | RoomConfig): value is RoomConfig {
+    return value.type === "room";
+  }
+}
