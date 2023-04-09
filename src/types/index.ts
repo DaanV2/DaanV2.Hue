@@ -14,6 +14,7 @@ export * from "./scene";
 export * from "./service";
 export * from "./states";
 export * from "./temperature";
+export * from "./types";
 export * from "./update";
 export * from "./user";
 export * from "./zigbee";

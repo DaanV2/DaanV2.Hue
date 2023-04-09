@@ -1,6 +1,8 @@
+import { ObjectType } from "./types";
+
 export interface Identifiable {
   id: string;
-  type: string;
+  type: ObjectType;
 }
 
 export namespace Identifiable {

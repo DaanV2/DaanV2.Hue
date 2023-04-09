@@ -1,9 +1,10 @@
 import { Identifiable } from "./identifiable";
 import { ServicesContainer } from "./service";
+import { ObjectType } from "./types";
 
 export interface Reference {
   rid: string;
-  rtype: string;
+  rtype: ObjectType;
 }
 
 export namespace Reference {
@@ -30,7 +31,12 @@ export namespace Reference {
    */
   export function extract(item: ServicesContainer | Identifiable) {
     if (ServicesContainer.is(item)) {
-      return item.services.find((s) => s.rtype === "grouped_light")!;
+      for (const service of item.services) {
+        if (service.rtype === "grouped_light") {
+          return service;
+        }
+      }
+      return;
     }
 
     return from(item);
