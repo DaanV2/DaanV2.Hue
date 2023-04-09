@@ -24,3 +24,17 @@ export interface GroupConfig {
   dynamics: {};
   type: "grouped_light";
 }
+
+export interface ServicesContainer {
+  services: Reference[];
+}
+
+export namespace GroupConfig {
+  export function getGroupConfig(container: ServicesContainer): Reference | undefined {
+    return container.services.find((s) => s.rtype === "grouped_light");
+  }
+
+  export function hasGroup(container: ServicesContainer, group: Reference): boolean {
+    return container.services.some((s) => s.rid === group.rid);
+  }
+}
