@@ -29,10 +29,10 @@ export namespace Reference {
    * @returns A reference to the light.
    */
   export function extract(item: ServicesContainer | Identifiable) {
-    if (Identifiable.is(item)) {
-      return from(item);
+    if (ServicesContainer.is(item)) {
+      return item.services.find((s) => s.rtype === "grouped_light")!;
     }
 
-    return item.services.find((s) => s.rtype === "grouped_light")!;
+    return from(item);
   }
 }
