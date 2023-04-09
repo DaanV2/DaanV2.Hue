@@ -1,6 +1,6 @@
 {
   "name": "@daanv2/hue",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A library to control a hue bridge",
   "author": "DaanV2",
   "license": "MIT",
