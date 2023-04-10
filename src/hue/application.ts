@@ -1,22 +1,21 @@
 import { Bridge } from "./bridge";
-import { CreateDeveloperResponse } from "../messages";
-import { LightStateRequest, StateChangeSuccess } from "../messages/lights";
-import fetch, { RequestInit } from "node-fetch";
-import { HttpError } from "./errors";
 import { BridgeConfig } from "../types/config";
-import { ClipV2Message } from "../messages/clipv2";
-import { RoomConfig } from "../types/room";
-import { LightConfig, LightLevelConfig } from "../types";
-import { Reference } from "../types/reference";
-import { GroupConfig } from "../types/groups";
 import { BridgeHomeConfig } from "../types/bridge_home";
-import { ZoneConfig } from "../types/zone";
+import { ClipV2Message } from "../messages/clipv2";
+import { CreateDeveloperResponse } from "../messages";
 import { DeviceConfig, DevicePowerConfig } from "../types/device";
-import { ZigbeeConnectivity } from "../types/zigbee";
+import { GroupConfig } from "../types/groups";
+import { HttpError } from "./errors";
+import { LightConfig, LightLevelConfig } from "../types";
+import { LightStateRequest, StateChangeSuccess } from "../messages/lights";
 import { MotionConfig } from "../types/motion";
+import { Reference } from "../types/reference";
+import { RoomConfig } from "../types/room";
 import { SceneConfig } from "../types/scene";
 import { TemperatureConfig } from "../types/temperature";
-import { HeaderInit } from "node-fetch";
+import { ZigbeeConnectivity } from "../types/zigbee";
+import { ZoneConfig } from "../types/zone";
+import fetch, { RequestInit } from "node-fetch";
 
 export class Application {
   public readonly bridge: Bridge;
@@ -61,7 +60,7 @@ export class Application {
 
     this.addOptions(options);
 
-    return fetch(`${this.bridge.rest.baseUrl} /auth/v1`, options);
+    return fetch(`${this.bridge.rest.baseUrl}/auth/v1`, options);
   }
 
   /** Gets the config from  */
