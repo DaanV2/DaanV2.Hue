@@ -21,7 +21,7 @@ export class RestClient {
     }
 
     // Add a default agent
-    if (this.baseOptions.agent === undefined) {
+    if (this.baseOptions.agent === undefined && this.baseUrl.startsWith("https://")) {
       // Hue uses a self-signed certificate, so we need to disable certificate validation
       const httpsAgent = new https.Agent({
         rejectUnauthorized: false,
