@@ -52,5 +52,8 @@ jobs:
       - name: Setup Project
         run: npm ci
 
+      - name: 🔨 Compile Project
+        run: npm run compile
+
       - name: 🚚 Npm Publish
         run: npm publish
