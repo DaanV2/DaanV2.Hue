@@ -27,12 +27,12 @@ export interface LightBaseStateRequest {
 
 export interface LightStateXYRequest extends LightBaseStateRequest {
   /** The x and y coordinates of a color in CIE color space */
-  color: { xy: { x: 0.5; y: 0.5 } };
+  color: { xy: { x: number; y: number } };
 }
 
 export interface LightStateCTRequest extends LightBaseStateRequest {
   /** The Mired Color temperature of the light. from 153 (6500K) to 500 (2000K) */
-  color_temperature: { mirek: 250 };
+  color_temperature: { mirek: number };
 }
 
 export type LightStateRequest = LightStateXYRequest | LightStateCTRequest;
