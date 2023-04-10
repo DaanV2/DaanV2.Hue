@@ -91,7 +91,7 @@ export class Application {
       body: JSON.stringify(state),
     };
 
-    return this.bridge.rest.get<ClipV2Message<StateChangeSuccess>>(
+    return this.bridge.rest.put<ClipV2Message<StateChangeSuccess>>(
       `/clip/v2/resource/grouped_light/${groupId}`,
       options
     );
@@ -161,7 +161,7 @@ export class Application {
       body: JSON.stringify(state),
     };
 
-    return this.bridge.rest.get<ClipV2Message<Reference>>(`/clip/v2/resource/light/${lightId}`, options);
+    return this.bridge.rest.put<ClipV2Message<Reference>>(`/clip/v2/resource/light/${lightId}`, options);
   }
 
   /** Gets the `motion` resource from the bridge.

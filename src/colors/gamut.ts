@@ -81,7 +81,7 @@ export namespace Gamut {
 
   export function toRGB(x: number, y: number, brightness: number): RGB {
     // Apply gamma correction
-    const Y = brightness;
+    const Y = brightness / 100;
     const X = (Y / y) * x;
     const Z = (Y / y) * (1 - x - y);
 
