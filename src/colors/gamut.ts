@@ -1,3 +1,5 @@
+import { RGB } from "./rgb";
+
 export type GamutPoint = [x: number, y: number];
 export interface GamutConfig {
   red: GamutPoint;
@@ -51,7 +53,8 @@ export namespace Gamut {
    * @param blue
    * @returns
    */
-  export function fromRGB(red: number, green: number, blue: number): GamutResult {
+  export function fromRGB(rgb: RGB): GamutResult {
+    let [red, green, blue] = rgb;
     red = clamp(red, 0, 255) / 255;
     green = clamp(green, 0, 255) / 255;
     blue = clamp(blue, 0, 255) / 255;
@@ -61,12 +64,12 @@ export namespace Gamut {
     const g = green > 0.04045 ? Math.pow((green + 0.055) / (1.0 + 0.055), 2.4) : green / 12.92;
     const b = blue > 0.04045 ? Math.pow((blue + 0.055) / (1.0 + 0.055), 2.4) : blue / 12.92;
 
-    const X = red * 0.4124 + green * 0.3576 + blue * 0.1805;
-    const Y = red * 0.2126 + green * 0.7152 + blue * 0.0722;
-    const Z = red * 0.0193 + green * 0.1192 + blue * 0.9505;
+    const X = r * 0.4124 + g * 0.3576 + b * 0.1805;
+    const Y = r * 0.2126 + g * 0.7152 + b * 0.0722;
+    const Z = r * 0.0193 + g * 0.1192 + b * 0.9505;
 
     return {
-      dimming: { brightness: Y },
+      dimming: { brightness: clamp(Math.floor(Y * 100), 0, 100) },
       color: {
         xy: {
           x: X / (X + Y + Z),
@@ -76,7 +79,7 @@ export namespace Gamut {
     };
   }
 
-  export function toRGB(x: number, y: number, brightness: number): [r: number, g: number, b: number] {
+  export function toRGB(x: number, y: number, brightness: number): RGB {
     // Apply gamma correction
     const Y = brightness;
     const X = (Y / y) * x;
@@ -92,7 +95,7 @@ export namespace Gamut {
     const g = green <= 0.0031308 ? 12.92 * green : (1.0 + 0.055) * Math.pow(green, 1.0 / 2.4) - 0.055;
     const b = blue <= 0.0031308 ? 12.92 * blue : (1.0 + 0.055) * Math.pow(blue, 1.0 / 2.4) - 0.055;
 
-    return [r, g, b];
+    return [clamp(Math.floor(r * 255), 0, 255), clamp(Math.floor(g * 255), 0, 255), clamp(Math.floor(b * 255), 0, 255)];
   }
 }
 

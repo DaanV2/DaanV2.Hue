@@ -36,3 +36,13 @@ export interface LightStateCTRequest extends LightBaseStateRequest {
 }
 
 export type LightStateRequest = LightStateXYRequest | LightStateCTRequest;
+
+export namespace LightStateRequest {
+  export function isXY(request: LightStateRequest): request is LightStateXYRequest {
+    return (request as LightStateXYRequest).color !== undefined;
+  }
+
+  export function isCT(request: LightStateRequest): request is LightStateCTRequest {
+    return (request as LightStateCTRequest).color_temperature !== undefined;
+  }
+}
