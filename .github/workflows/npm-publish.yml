@@ -35,6 +35,9 @@ jobs:
         run: npm run test
 
   publish-npm:
+    environment: 
+      name: NPM Registery
+      url: https://www.npmjs.com/package/@daanv2/hue
     needs: test
     runs-on: ubuntu-latest
     name: 🚚 Npm Publish
