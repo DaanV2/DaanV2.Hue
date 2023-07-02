@@ -34,7 +34,7 @@
   "dependencies": {
     "@jest/types": "^29.5.0",
     "jest-junit": "^16.0.0",
-    "node-fetch": "^2.6.9",
+    "node-fetch": "^2.6.11",
     "ts-jest": "^29.1.1"
   },
   "repository": {
