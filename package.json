@@ -35,7 +35,7 @@
     "@jest/types": "^29.6.3",
     "jest-junit": "^16.0.0",
     "node-fetch": "^2.6.12",
-    "ts-jest": "^29.4.3"
+    "ts-jest": "^29.4.5"
   },
   "repository": {
     "type": "git",
